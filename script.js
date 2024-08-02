@@ -1,30 +1,27 @@
-// Set the date we're counting down to
-let countDownDate = new Date("Dec 31, 2024 23:59:59").getTime();
+let daysItem = document.querySelector("#day");
+let hoursItem = document.querySelector("#hour");
+let minItem = document.querySelector("#min"); 
+let secItem = document.querySelector("#sec");
 
-// Update the count down every 1 second
-let x = setInterval(function() {
+let countDown = () => {
 
-    // Get today's date and time
-    let now = new Date().getTime();
+    setInterval (() => {
+    let futureDate = new Date("1 Jan 2025"); 
+    let currentDate = new Date();
+    let timeLeft = futureDate - currentDate;
 
-    // Find the distance between now and the count down date
-    let distance = countDownDate - now;
+    let days = Math.floor(timeLeft / 1000 / 60 / 60 / 24);
+    let hours = Math.floor(timeLeft / 1000 / 60 / 60) % 24;
+    let minutes = Math.floor(timeLeft / 1000 / 60) % 60; 
+    let seconds = Math.floor(timeLeft / 1000) % 60;
 
-    // Time calculations for days, hours, minutes and seconds
-    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    daysItem.innerHTML = days;
+    hoursItem.innerHTML = hours;
+    minItem.innerHTML = minutes; 
+    secItem.innerHTML = seconds;
 
-    // Display the result in the elements with id
-    document.getElementById("days").innerHTML = days;
-    document.getElementById("hours").innerHTML = hours;
-    document.getElementById("minutes").innerHTML = minutes;
-    document.getElementById("seconds").innerHTML = seconds;
+    },1000);
+}
 
-    // If the count down is over, write some text
-    if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("countdown").innerHTML = "EXPIRED";
-    }
-}, 1000);
+countDown();
+// setInterval(countDown, 1000);
